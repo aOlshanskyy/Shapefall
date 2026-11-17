@@ -3,6 +3,9 @@ body {
   margin: 0;
   height: 100%;
   background: #14161c;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
 }
 
 body {
@@ -16,4 +19,5 @@ body {
   display: block;
   border-radius: 8px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  display: block;
 }

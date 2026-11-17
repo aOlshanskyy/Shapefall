@@ -6,7 +6,11 @@ export default class Rect extends Shapes{
         super();
     }
 
+    getScaleRange() {
+        return { min: 0.5, max: 1 };
+    }
+
     createBody(){
-        return new PIXI.Graphics().rect(-50, -50, 100, 100).fill(0xff0000);
+        return new PIXI.Graphics().rect(-30, -30, 60, 60).fill(this.color);
     }
 }
