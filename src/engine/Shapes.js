@@ -10,6 +10,8 @@ class Shapes extends PIXI.Sprite{
         super();
 
         this.sides = sides;
+        this._w = 0;
+        this._h = 0;
         this.velocity = 0;
         this.colors = [0xff0000, 0x27CFF5, 0x8E27F5, 0xF527CF, 0x05A659, 0xABED37]
         this.body = this.addChild(this.createBody());
@@ -25,6 +27,10 @@ class Shapes extends PIXI.Sprite{
         return randomRangeFloat(range.min, range.max);
     }
 
+    getArea(){
+        return this._w * this._h * this.body.scale.x * this.body.scale.y;
+    }
+
     isBellow(){
         const posLimit = this.position.y - this.getBounds().height/2;
         if(posLimit > Screen.bottom) return true;
@@ -36,9 +42,9 @@ class Shapes extends PIXI.Sprite{
     }
 
     createBody(){
-        const width = getRandomInt(20, 80);
-        const height = getRandomInt(20, 80);
-        return new PIXI.Graphics().rect(-width/2, -height/2, width, height).fill(this.color);
+        this._w = getRandomInt(20, 80);
+        this._h = getRandomInt(20, 80);
+        return new PIXI.Graphics().rect(-this._w/2, -this._h/2, this._w, this._h).fill(this.color);
     }
 
     tick(delta){

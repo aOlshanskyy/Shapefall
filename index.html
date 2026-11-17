@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,8 +14,28 @@
     }
   </script>
 </head>
+
 <body>
-  <main id="stage"></main>
+  <main id="stage">
+    <div id="hud">
+      <div id="shape-count">Shapes: 0</div>
+      <div id="shape-area">Area: 0</div>
+    </div>
+
+    <div id="controls">
+      <div>
+        <button type="button" id="rate-minus">−</button>
+        <span id="rate-value">1 / s</span>
+        <button type="button" id="rate-plus">+</button>
+      </div>
+      <div>
+        <button type="button" id="gravity-minus">−</button>
+        <span id="gravity-value">400</span>
+        <button type="button" id="gravity-plus">+</button>
+      </div>
+    </div>
+  </main>
   <script type="module" src="/src/App.js"></script>
 </body>
+
 </html>

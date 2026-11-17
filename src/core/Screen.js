@@ -34,7 +34,7 @@ export default class Screen {
             this.height = 400;
         } else {
             this.width = 600;
-            this.height = 400;
+            this.height = 500;
         }
         const margin = this.orientation === 'portrait' ? 16 : 16;
         const availableWidth = windowWidth - margin * 2;

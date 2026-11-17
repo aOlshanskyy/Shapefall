@@ -21,6 +21,7 @@ class App {
         });
 
         stage.appendChild(app.canvas);
+        stage.insertBefore(app.canvas, document.querySelector('#controls'));
         app.stage.position.set(600 / 2, 400 / 2);
         const game = new GameWindow();
         app.stage.eventMode = 'static';
@@ -40,6 +41,11 @@ class App {
             game.tick(app.ticker.deltaMS);
         });
 
+        document.querySelector('#rate-plus').addEventListener('click', () => game.changeRate(1));
+        document.querySelector('#rate-minus').addEventListener('click', () => game.changeRate(-1));
+        document.querySelector('#gravity-plus').addEventListener('click', () => game.changeGravity(100));
+        document.querySelector('#gravity-minus').addEventListener('click', () => game.changeGravity(-100));
+
         App.pixiApp = app;
         App.gameWindow = game;
         Screen.on('resize', App.onResize);
@@ -53,8 +59,11 @@ class App {
     static onResize() {
         const pixi = App.pixiApp;
         pixi.renderer.resize(Screen.width, Screen.height);
-        pixi.canvas.style.width = Screen.viewWidth + 'px';
-        pixi.canvas.style.height = Screen.viewHeight + 'px';
+        // pixi.canvas.style.width = Screen.viewWidth + 'px';
+        // pixi.canvas.style.height = Screen.viewHeight + 'px';
+        pixi.canvas.style.width = Screen.width + 'px';
+        pixi.canvas.style.height = Screen.height + 'px';
+        stage.style.zoom = Screen.scale;
         pixi.stage.position.set(Screen.width / 2, Screen.height / 2);
         pixi.stage.hitArea = new Rectangle(
             Screen.left,
@@ -63,6 +72,12 @@ class App {
             Screen.height,
         );
 
+        const controls = document.querySelector('#controls');
+        controls.style.zoom = Screen.orientation === 'portrait' ? 1.7 : 1;
+        controls.style.gap = Screen.orientation === 'portrait' ? '30px' : '120px';
+
+        const hud = document.querySelector('#hud');
+        hud.style.zoom = Screen.orientation === 'portrait' ? 1.7 : 1;
     }
 }
 

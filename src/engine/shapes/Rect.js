@@ -4,6 +4,8 @@ import * as PIXI from 'pixi.js';
 export default class Rect extends Shapes{
     constructor(){
         super();
+        this._w = 60;
+        this._h = 60;
     }
 
     getScaleRange() {
