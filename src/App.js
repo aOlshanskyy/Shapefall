@@ -67,7 +67,6 @@ class App {
         pixi.renderer.resize(Screen.width, Screen.height);
         pixi.canvas.style.width = Screen.width + 'px';
         pixi.canvas.style.height = Screen.height + 'px';
-        stage.style.zoom = Screen.scale;
         pixi.stage.position.set(Screen.width / 2, Screen.height / 2);
         pixi.stage.hitArea = new Rectangle(
             Screen.left,
@@ -82,6 +81,16 @@ class App {
 
         const hud = document.querySelector('#hud');
         hud.style.zoom = Screen.orientation === 'portrait' ? 1.7 : 1;
+
+        stage.style.zoom = 1;
+        const margin = 16;
+        const availableWidth = window.innerWidth - margin * 2;
+        const availableHeight = window.innerHeight - margin * 2;
+        stage.style.zoom = Math.min(
+            1,
+            availableWidth / stage.offsetWidth,
+            availableHeight / stage.offsetHeight,
+        );
 
         App.gameWindow.onResize();
     }
