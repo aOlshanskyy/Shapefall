@@ -15,13 +15,19 @@ export default class PauseBtn extends PIXI.Container {
 
         this.view.eventMode = 'dynamic';
         this.view.on("pointerdown", this.handleClick, this);
+
+        this.updateView();
     }
 
     handleClick(e) {
         if (!e.isPrimary) return;
         e.stopPropagation();
         App.pause = !App.pause;
-        if(!App.pause) this.view.texture = this.textures.play;
+        this.updateView();
+    }
+
+    updateView(){
+        if(App.pause) this.view.texture = this.textures.play;
         else this.view.texture = this.textures.pause;
     }
 }
