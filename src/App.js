@@ -1,4 +1,4 @@
-import { Application, Rectangle } from 'pixi.js';
+import { Application, Assets, Rectangle } from 'pixi.js';
 import GameWindow from './GameWindow.js';
 import Screen from './core/Screen.js';
 
@@ -9,8 +9,9 @@ class App {
     static pixiApp = null;
     static gameWindow = null;
 
+    static pause = false;
+
     static async init() {
-        Screen.setDesignSize(600, 400);
         Screen.update();
         const app = new Application();
         await app.init({
@@ -19,6 +20,11 @@ class App {
             background: '#1e2430',
             antialias: true,
         });
+
+        await Assets.load([
+            '/src/assets/play.png',
+            '/src/assets/pause.png',
+        ]);
 
         stage.appendChild(app.canvas);
         stage.insertBefore(app.canvas, document.querySelector('#controls'));
@@ -59,8 +65,6 @@ class App {
     static onResize() {
         const pixi = App.pixiApp;
         pixi.renderer.resize(Screen.width, Screen.height);
-        // pixi.canvas.style.width = Screen.viewWidth + 'px';
-        // pixi.canvas.style.height = Screen.viewHeight + 'px';
         pixi.canvas.style.width = Screen.width + 'px';
         pixi.canvas.style.height = Screen.height + 'px';
         stage.style.zoom = Screen.scale;
@@ -78,6 +82,8 @@ class App {
 
         const hud = document.querySelector('#hud');
         hud.style.zoom = Screen.orientation === 'portrait' ? 1.7 : 1;
+
+        App.gameWindow.onResize();
     }
 }
 

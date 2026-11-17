@@ -13,13 +13,15 @@ class Shapes extends PIXI.Sprite{
         this._w = 0;
         this._h = 0;
         this.velocity = 0;
-        this.colors = [0xff0000, 0x27CFF5, 0x8E27F5, 0xF527CF, 0x05A659, 0xABED37]
+        this.colors = [0xff0000, 0x27CFF5, 0x8E27F5, 0xF527CF, 0x05A659, 0xABED37, 0xfbff05];
+        this._color = null;
         this.body = this.addChild(this.createBody());
         this.body.scale.set(this.shapeScaleValue)
     }
 
     get color(){
-        return getRandomFromArray(this.colors);
+        if(!this._color) this._color = getRandomFromArray(this.colors);
+        return this._color;
     }
 
     get shapeScaleValue(){

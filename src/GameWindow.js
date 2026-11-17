@@ -6,6 +6,10 @@ import Rect from './engine/shapes/Rect.js';
 import Shapes from './engine/Shapes.js';
 import Star from './engine/shapes/Star.js';
 import Poligon from './engine/shapes/Poligon.js';
+import Ellipse from './engine/shapes/Ellipse.js';
+import Irregular from './engine/shapes/Irregular.js';
+import PauseBtn from './engine/PauseBtn.js';
+import App from './App.js';
 
 class GameWindow extends PIXI.Container {
     constructor() {
@@ -14,10 +18,12 @@ class GameWindow extends PIXI.Container {
         this.pool = [];
         this.timer = 0;
         this.delay = 1000;
+
+        this.pauseBtn = this.addChild(new PauseBtn());
     }
 
     getShapeType() {
-        const types = [Circle, Rect, Shapes, Star, Poligon, Poligon];
+        const types = [Circle, Ellipse,  Rect, Shapes, Star, Poligon, Poligon, Irregular];
         return getRandomFromArray(types);
     }
 
@@ -53,7 +59,6 @@ class GameWindow extends PIXI.Container {
 
     removeShape(shape, i) {
         this.pool.splice(i, 1);
-        // this.removeChild(shape);
         shape.destroy({ children: true });
     }
 
@@ -97,6 +102,8 @@ class GameWindow extends PIXI.Container {
     }
 
     tick(delta) {
+        if(App.pause) return;
+        
         this.timer += delta;
         if (this.timer >= this.delay) {
             this.addShape();
@@ -118,7 +125,13 @@ class GameWindow extends PIXI.Container {
     }
 
     onResize() {
-
+        if(Screen.orientation === "landscape"){
+            this.pauseBtn.position.set(Screen.width * 0.45, -Screen.height * 0.42);
+            this.pauseBtn.scale.set(Screen.width * 0.2 / 2048);
+        }else{
+            this.pauseBtn.position.set(Screen.width * 0.45, -Screen.height * 0.44);
+            this.pauseBtn.scale.set(Screen.width * 0.3 / 2048);
+        }
     }
 }
 
